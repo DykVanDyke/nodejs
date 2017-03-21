@@ -45,7 +45,8 @@ app.get('/', function(req,res) {
       <li>API description: <a href='/api-docs/index.html'>Swagger-UI</a> </li> \
       <li>API description: <a href='/swagger.json'>JSON</a> </li></li> \
     </ul> \
-    <p>Don't forget to update URL/PORT number on line 41 from file public\\api-docs\\index.html for SWAGGER-UI to work...</p> \
+    <p>To prevent CORS issues, don't forget to update URL/PORT number on line 41 from file public\\api-docs\\index.html according to value set on app.js (variable server_port)\
+    </p> \
   </body> ";
   res.send(HTMLstring);
 });
