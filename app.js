@@ -3,6 +3,7 @@ var path = require('path');
 var swaggerJSDoc = require('swagger-jsdoc');
 var ticketController = require('./controllers/ticketController');
 var userController = require('./controllers/userController');
+var server_port = 3080;
 
 // Instantiate an Express Object to use the Express Framework functionalities...
 var app = express();
@@ -18,7 +19,7 @@ var swaggerSpec = swaggerJSDoc({
       version: '1.0.0',
       description: 'Demonstrating how to describe a RESTful API with Swagger',
     },
-    host: 'localhost:80',
+    host: 'localhost:'+server_port,
     basePath: '/',
   },
   // path to the API docs
@@ -34,6 +35,20 @@ ticketController(app);
 // userController(app);
 app.use(userController);
 
+
+//
+app.get('/', function(req,res) {
+  res.setHeader('Content-Type', 'text/html');
+  var HTMLstring = "  <body>    \
+  <h1>Index of a RESTful API</h1> \
+    <ul> \
+      <li>API description: <a href='/api-docs/index.html'>Swagger-UI</a> </li> \
+      <li>API description: <a href='/swagger.json'>JSON</a> </li></li> \
+    </ul> \
+    <p>Don't forget to update URL/PORT number on line 41 from file public\\api-docs\\index.html for SWAGGER-UI to work...</p> \
+  </body> ";
+  res.send(HTMLstring);
+});
 //
 app.get('/swagger.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -42,5 +57,5 @@ app.get('/swagger.json', function(req, res) {
 
 
 // start the web server
-app.listen(80);
-console.log('Running the http server on port 80...');
+app.listen(server_port);
+console.log('Running the http server on port '+server_port+'...');
